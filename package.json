@@ -1,0 +1,32 @@
+{
+  "name": "anydoor",
+  "version": "1.0.0",
+  "description": "node project",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "pre-commit": "^1.2.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "fix": "eslint --fix ."
+  },
+  "pre-commit": [
+    "fix",
+    "lint"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hushinn/anydoor.git"
+  },
+  "author": "shin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hushinn/anydoor/issues"
+  },
+  "homepage": "https://github.com/hushinn/anydoor#readme"
+}
