@@ -13,5 +13,11 @@ module.exports = {
         "ecmaVersion": 2018
     },
     "rules": {
+      "key-spacing": ["error", {
+        "align": "colon"
+      }],
+      "no-console": ["error", {
+        "allow": ["info", "error", "warn"]
+      }]
     }
 };
