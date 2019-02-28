@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "node project",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "handlebars": "^4.1.0"
+  },
   "devDependencies": {
     "chalk": "^2.4.2",
     "eslint": "^5.14.1",
