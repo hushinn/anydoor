@@ -19,7 +19,7 @@ module.exports = async function route(req, res, filePath) {
       // 是文件
       res.statusCode = 200;
       res.setHeader('Content-type', 'text/plain');
-      fs.createReadStream(filePath).pipe(res);
+      fs.createReadStream(filePath, 'utf8').pipe(res);
     } else if (stats.isDirectory()) {
       // 是文件目录
       const files = await readdir(filePath);
