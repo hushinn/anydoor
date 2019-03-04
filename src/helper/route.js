@@ -3,6 +3,7 @@ const { promisify } = require('util');
 const path = require('path');
 const Handlebars = require('handlebars');
 const { root } = require('../config/defaultConf');
+const mime = require('./mime');
 
 // 转化为promise
 const stat = promisify(fs.stat);
@@ -18,7 +19,8 @@ module.exports = async function route(req, res, filePath) {
     if (stats.isFile()) {
       // 是文件
       res.statusCode = 200;
-      res.setHeader('Content-type', 'text/plain');
+      const contentType = mime(filePath);
+      res.setHeader('Content-type', contentType);
       fs.createReadStream(filePath, 'utf8').pipe(res);
     } else if (stats.isDirectory()) {
       // 是文件目录
