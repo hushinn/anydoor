@@ -2,8 +2,9 @@ const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
 const Handlebars = require('handlebars');
-const { root } = require('../config/defaultConf');
+const config = require('../config/defaultConf');
 const mime = require('./mime');
+const compress = require('./compress');
 
 // 转化为promise
 const stat = promisify(fs.stat);
@@ -18,16 +19,21 @@ module.exports = async function route(req, res, filePath) {
     const stats = await stat(filePath);
     if (stats.isFile()) {
       // 是文件
-      res.statusCode = 200;
       const contentType = mime(filePath);
+      res.statusCode = 200;
       res.setHeader('Content-type', contentType);
-      fs.createReadStream(filePath, 'utf8').pipe(res);
+      let rs = fs.createReadStream(filePath, 'utf8');
+      // 压缩
+      if (filePath.match(config.compress)) {
+        rs = compress(rs, req, res);
+      }
+      rs.pipe(res);
     } else if (stats.isDirectory()) {
       // 是文件目录
       const files = await readdir(filePath);
       res.statusCode = 200;
       res.setHeader('Content-type', 'text/html');
-      const relativePath = path.relative(root, filePath);
+      const relativePath = path.relative(config.root, filePath);
       const data = {
         title: path.basename(filePath),
         dir  : relativePath ? `/${relativePath}` : '',
